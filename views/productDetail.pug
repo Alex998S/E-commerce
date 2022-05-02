@@ -1,0 +1,46 @@
+extends layout
+
+block main 
+    section.details 
+        .container.details-container
+            .row.gx-3.gy-5
+                .details-image.col-xl-6.col-lg-6.col-md-12.col-sm-12
+                    img(src=`/static/${productImage}`)
+                .details-other.col-xl-6.col-lg-6.col-md-12.col-sm-12
+                    h3= productName
+                    br
+                    h4 Price #{price}
+                    p= longDescription 
+                    .allVariations
+                        -if(colorArray.length > 0)
+                            h3 Colors
+                            .variation.row.g-2
+                                for color in colorArray 
+                                    .variants#color.value.col
+                                        label.theLabel #{color.name}
+                                            input.radioButton(type="radio", name="color", value=color.value, id=color.name)
+                                        
+                        -if(sizeArray.length > 0)
+                            h3 Sizes
+                            .variation.row.g-2
+                                for size in sizeArray 
+                                    .variants#size.value.col
+                                        label.theLabel #{size.name}
+                                            input.radioButton(type="radio", name="size", value=size.value, id=size.name)
+                                -for (k=0; k<3; k++)
+                                    .col.emptyProduct
+                        -if(widthArray.length > 0)
+                            h3 Widths
+                            .variation.row.g-2
+                                for width in widthArray 
+                                    .variants#width.value.col 
+                                        label.theLabel #{width.name}
+                                            input.radioButton(type="radio", name="width", value=width.value, id=width.name)
+                    br
+                    form(action=`/product/` +productID, method="post") 
+                        button.btn.btn-outline-primary(type="submit") Add to cart
+                    br
+            //- script(type = 'text/javascript', src='.static/javascripts/variationSelector.js')
+
+            
+            

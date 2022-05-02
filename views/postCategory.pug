@@ -1,0 +1,16 @@
+extends layout 
+
+block main 
+    section.postCategory
+        form.form-group.post-container(action="/posts/category", method="post")
+            label.form-label Enter category id:
+                input.form-input(type="text", name="id")
+            label.form-label Enter category name:
+                input.form-input(type="text", name="name")
+            label.form-label Enter category page description:
+                input.form-input(type="text", name="pageDescription")
+            label.form-label Enter category parent id:
+                input.form-input(type="text", name="parentCategoryId")
+            label.form-label Enter category image path:
+                input.from-control-file(type="file", name="image", multiple)
+            button(type="submit") Submit

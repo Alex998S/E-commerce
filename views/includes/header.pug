@@ -1,0 +1,13 @@
+header
+    
+    .navbar.navbar-expand-lg.navbar-light.bg-primary.justify-content-between
+        .leftNav
+            form(action=`/mens/categories`, method="get") 
+                button.buttons(type="submit") Mens
+            form(action=`/womens/categories`, method="get")
+                button.buttons(type="submit") Womens
+        .rightNav
+            form(action='/auth/signup', method="get")
+                button.buttons(type="submit") Sign Up
+            form(action='/auth/signin', method="get")
+                button.buttons(type="submit") Sign In 

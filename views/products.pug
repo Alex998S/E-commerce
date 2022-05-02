@@ -1,0 +1,27 @@
+extends layout
+
+block main
+    section.products
+    - var i = 0
+    - var l = length
+        .container.productContainer
+            //- -for(j=0; j < length; j++)
+            .row.justify-content-center.g-3
+                //- -for(k=0; k<3; k++)
+                -for(i=0; i<length; i++)
+                    .col-xxl-3.col-xl-3.col-lg-4.col-md-5.col-sm-11.col-sx-11.singleProduct
+                        .productName
+                            h4= productName[i]
+                        .productImage
+                            img(src=`/static/${productImage[i]}`)
+                        .shortDescription
+                            h6= description[i]
+                        .price
+                            h3 Price #{price[i]}
+                        .showDetails
+                            form(action=`/product/` + productID[i],method="get")
+                                button.btn.btn-outline-primary(type="submit") Details
+                            - i++
+                        br
+                -for(j=0; j<4; j++)
+                    .col-xxl-3.col-xl-3.col-lg-4.col-md-5.col-sm-11.col-sx-11.singleProduct.emptyProduct

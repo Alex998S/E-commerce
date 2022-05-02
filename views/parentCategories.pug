@@ -1,0 +1,18 @@
+extends layout
+
+block main
+    section.subcategories
+        .sub-container
+            - var total=0
+            .container
+                - for(var i=0; i<categ; i++)
+                    .categoryName
+                        h2= name[i]
+                    .categoryImage
+                        img.img-fluid(src=`/static/${image[i]}`)
+                    .shortDescriptionCat
+                        p= description[i]
+                    .showDetails
+                        form(action=`/subcategory/` +id[i], method="get") 
+                            button.btn.btn-outline-primary(type="submit") Show categories
+                    br

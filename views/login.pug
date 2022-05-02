@@ -1,0 +1,11 @@
+extends layout 
+
+block main 
+    section.login 
+        .login-content 
+            form(action="/auth/signin", method="post")
+                label Enter your email: 
+                    input(type="text", name="email")
+                label Enter your password: 
+                    input(type="text", name="password")
+                button(type="submit") Sign In
