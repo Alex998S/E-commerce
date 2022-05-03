@@ -39,7 +39,7 @@ const ProductSchema = mongoose.Schema({
         type: Array,
         required: true,
         file:{
-            type: String
+            type: Array
         },
         color:{
             type: String

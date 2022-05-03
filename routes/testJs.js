@@ -23,12 +23,13 @@ router.get('/product/addVariable', async(req,res)=>{
     try{
         const product = await products.find();
         const ids = [];
-        const image = [];
+        let image = [];
         const productName = []
         for(let i=0; i<product.length; i++){
             ids[i] = product[i].id
-            image[i] = product[i].images[0];
+            image[i] = product[i].images[0].file[0];
             productName[i] = product[i].productName;
+            console.log(image[i]);
         }
         res.render('addVariable', {ids, image, productName, length: product.length});
     }catch(err){

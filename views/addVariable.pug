@@ -6,6 +6,7 @@ block main
         .mainContent
             -for(var i=0; i<length; i++)
                 .product
-                    img(src=`/static/images/products/small/${image}`, alt="")
+                    img(src=`/static/images/products/small/${image[i]}`, alt="")
                     p= ids[i]
-                    p= productName[i] 
+                    p= productName[i]
+                    p= image[i]
