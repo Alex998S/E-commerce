@@ -1,28 +1,31 @@
 extends layout 
 
-block main 
-    section.postCategory
-        //- -for(i=0; i<ids.length; i++)
-        //-     p= ids[i]
-
-        form.form-group.post-container(action="/posts/product", method="post")
-            label.form-label Enter product id:
-                input.form-input(type="text", name="id")
-            label.form-label Enter product name:
-                input.form-input(type="text", name="name")
-            label.form-label Enter product price:
-                input.form-input(type="text", name="price")
-            label.form-label Enter product description:
-                input.form-input(type="text", name="description")
-            select.form-select#dropdown(onChange='update()')
-                -for(i=0; i<ids.length; i++)
-                    option(value=`${ids[i]}`, name="parentCategoryId") #{ids[i]}
-            input#hidden(type="text", name="option")
-            label.form-label Enter category imagas path:
-                input.from-control-file(type="file", name="images", multiple)
-            label.form-label Enter product color:
-                input.form-input(type="text", name="imageColor")
-            button(type="submit") Submit
-        button#showAddVariant Add Variant
+block main
+    .theParentContainer
+        include includes/adminPanel.pug
+        .mainContent
+            //- -for(i=0; i<ids.length; i++)
+            //-     p= ids[i]
+            form.form-group.post-container(action="/posts/product", method="post")
+                label.form-label Enter product id:
+                    input.form-input(type="text", name="id")
+                label.form-label Enter product name:
+                    input.form-input(type="text", name="name")
+                label.form-label Enter product price:
+                    input.form-input(type="text", name="price")
+                label.form-label Enter product description:
+                    input.form-input(type="text", name="description")
+                select.form-select#dropdown(onChange='update()')
+                    -for(i=0; i<ids.length; i++)
+                        option(value=`${ids[i]}`, name="parentCategoryId") #{ids[i]}
+                    //- for id in ids
+                    //-     option(value=`${id}`, name="parentCategoryId") #{id}
+                input#hidden(type="text", name="option")
+                label.form-label Enter category imagas path:
+                    input.from-control-file(type="file", name="images", multiple)
+                label.form-label Enter product color:
+                    input.form-input(type="text", name="imageColor")
+                button(type="submit") Submit
+            button#showAddVariant Add Variant
         
     script(src='../static/javascripts/postProduct.js')

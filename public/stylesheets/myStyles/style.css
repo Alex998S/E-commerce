@@ -1,7 +1,13 @@
 /* GENERAL */
 
 body{
+    min-height: 100vh;
     background-color: #d3dbe8;
+}
+
+.theParentContainer{
+    display: flex;
+    min-height: 100vh;
 }
 
 h3{
@@ -19,10 +25,13 @@ h3{
     display: none;
 }
 
+
 /* NAVBAR */
 
 .navbar{
+    flex-basis: 100%;
     display: flex;
+    height: auto;
 }
 
 .leftNav{
@@ -48,6 +57,33 @@ h3{
 
 .buttons:hover{
     font-weight: 540;
+}
+
+/* SIDEBAR */
+.sidebar{
+    background-color: lightgray;
+    min-width: 250px;
+    height: 100%;
+    text-align: center;
+    display: block;
+}
+
+.dropdown{
+    position: relative;
+}
+
+.dropdown-content{
+    display: none;
+    text-align: center;
+}
+
+.dropdown-content a{
+    display: block;
+}
+
+/* MAINCONTENT */
+.mainContent{
+    flex-grow: 1;
 }
 
 /* CATEGORIES */

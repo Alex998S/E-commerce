@@ -3,7 +3,7 @@ const { default: mongoose } = require('mongoose');
 const router = express.Router();
 const {posts, products, categories} = require('../models/Post')
 
-let productName;
+let length;
 
 router.get('/product', async(req, res)=>{
     try{
@@ -11,15 +11,12 @@ router.get('/product', async(req, res)=>{
        const ids = []
        for(let i=0; i<product.length; i++){
            ids[i] = product[i].id
-
        }
        res.render('postProduct', {ids})
         //res.json(product);
     }catch(err){
         res.json({message: err})
     }
-    res.render('postProduct')
-    
 })
 
 router.get('/category', async(req, res)=>{
