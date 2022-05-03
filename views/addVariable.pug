@@ -1,0 +1,11 @@
+extends layout 
+
+block main 
+    .theParentContainer 
+        include includes/adminPanel.pug
+        .mainContent
+            -for(var i=0; i<length; i++)
+                .product
+                    img(src=`/static/images/products/small/${image}`, alt="")
+                    p= ids[i]
+                    p= productName[i] 

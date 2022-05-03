@@ -19,6 +19,23 @@ router.get('/product', async(req, res)=>{
     }
 })
 
+router.get('/product/addVariable', async(req,res)=>{
+    try{
+        const product = await products.find();
+        const ids = [];
+        const image = [];
+        const productName = []
+        for(let i=0; i<product.length; i++){
+            ids[i] = product[i].id
+            image[i] = product[i].images[0];
+            productName[i] = product[i].productName;
+        }
+        res.render('addVariable', {ids, image, productName, length: product.length});
+    }catch(err){
+        res.json({message: err});
+    }
+})
+
 router.get('/category', async(req, res)=>{
     try{
         const post = await categories.find();
