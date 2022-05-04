@@ -1,6 +1,17 @@
-extends layout
+extends layout 
 
 block main 
     .theParentContainer 
-        include includes adminPanel.pug
+        include includes/adminPanel.pug
         .mainContent
+            -for(var i=0; i<length; i++)
+                .product
+                    img(src=`/static/images/products/small/${image[i]}`, alt="")
+                    p= `ID: ${ids[i]}`
+                    p= `Name: ${productName[i]}`
+                    form(action=`/posts/addVariable/` + ids[i], method="get")
+                        button(type="submit") Add variable 
+                    form(action=`/editProduct/` + ids[i], method="get")
+                        button(type="submit") Edit product
+                    form(action=`/deleteProduct/` + ids[i], method="delete")
+                        button(type="submit") Delete product

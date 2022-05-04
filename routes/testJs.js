@@ -1,5 +1,6 @@
 const express = require('express');
 const { default: mongoose } = require('mongoose');
+const { stringify } = require('nodemon/lib/utils');
 const router = express.Router();
 const {posts, products, categories} = require('../models/Post')
 
@@ -19,9 +20,9 @@ router.get('/product', async(req, res)=>{
     }
 })
 
-router.get('/product/addVariable', async(req,res)=>{
+router.get('/product/edit-products', async(req,res)=>{
     try{
-        const product = await products.find();
+        let product = await products.find();
         const ids = [];
         let image = [];
         const productName = []
@@ -29,11 +30,11 @@ router.get('/product/addVariable', async(req,res)=>{
             ids[i] = product[i].id
             image[i] = product[i].images[0].file[0];
             productName[i] = product[i].productName;
-            console.log(image[i]);
         }
-        res.render('addVariable', {ids, image, productName, length: product.length});
+        res.render('editProduct', {ids, image, productName, length: product.length});
     }catch(err){
-        res.json({message: err});
+        //res.json({message: err});
+        throw new Error(err.message);
     }
 })
 
@@ -74,15 +75,29 @@ function idGenerator(){
     return id;
 }
 
+function addExtraImage(theArray){
+    let array = [];
+    if(theArray.length > 10){
+        array.push(theArray);
+    }else{
+        for(let i=0; i<theArray.length; i++){
+            array.push(theArray[i]);
+        }
+    }
+    array.push('404.jpg')
+    return array;
+}
+
 router.post('/product', async (req, res)=>{
     
     const post = new products({
         productName: req.body.name,
         description: defaultValue(req.body.description),
+        //description: req.body.description,
         price: req.body.price,
         category: req.body.option,
         images:{
-            file: req.body.images,
+            file: addExtraImage(req.body.images),
             color: req.body.imageColor
         }
         // variants: {
@@ -95,22 +110,44 @@ router.post('/product', async (req, res)=>{
     try{
         const savedProduct = await post.save();
         res.json(savedProduct);
+        console.log(req.body.images);
     }catch(err){
         res.json({message: err})
     }
 })
 
-router.patch('/product/:id', async(req, res)=>{
+router.get('/addVariable/:id', async(req, res)=>{
     try{
-        const updatedPost = await products.updateOne({_id: req.params.id}, {$push: {variants:{
-            id: idGenerator(),
-            color: req.body.color,
-            size: req.body.size,
-            width: req.body.width
-        }}})
-        res.json(updatedPost);
+        const product = await products.find({_id: req.params.id})
+        const name = product[0].productName;
+        const image = product[0].images[0].file[0];
+        const id = product[0].id;
+        //res.json(product);
+        res.render('addVariable', {name, image, id});
+    }catch(err){
+        throw new Error(err.message);
+    }
+})
+
+router.patch('/addVariable/:id', async(req, res)=>{
+    try{
+        // const updatedPost = await products.updateOne({_id: req.params.id}, {$push: {variants:{
+        //     id: idGenerator(),
+        //     color: req.body.color,
+        //     size: req.body.size,
+        //     width: req.body.width
+        // }}})
+
+        const test = await products.updateOne({productName: "dark"},{$set:{productName: req.body.color}})
+        // const addImages = await products.updateOne({_id: req.params.id}, {$push: {images:{
+        //     file: req.body.images,
+        //     color: req.body.color
+        // }}})
+        res.json(test);
+        console.log("hey");
     }catch(err){
         res.json({message: err});
+        console.log(err);
     }
 })
     

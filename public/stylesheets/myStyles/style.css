@@ -105,6 +105,14 @@ h3{
     margin: 10px 20px 10px 20px;
 }
 
+/* ADD VARIABLE */
+
+.product{
+    border-bottom: 0.5px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
 /* PRODUCTS */
 
 .productContainer{

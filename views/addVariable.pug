@@ -4,9 +4,16 @@ block main
     .theParentContainer 
         include includes/adminPanel.pug
         .mainContent
-            -for(var i=0; i<length; i++)
-                .product
-                    img(src=`/static/images/products/small/${image[i]}`, alt="")
-                    p= ids[i]
-                    p= productName[i]
-                    p= image[i]
+            p= name
+            img(src=`/static/images/products/medium/` + image, alt="")
+            p= id
+            form.form-group.post-container(action=`/posts/addVariable/` + id, method="patch")
+                label.form-label Enter variable color:
+                    input.form-input(type="text", name="color")
+                label.form-label Enter variable size:
+                    input.form-input(type="text", name="size")
+                label.form-label Enter variable width:
+                    input.form-input(type="text", name="width")
+                label.form-label Enter imagas path:
+                    input.from-control-file(type="file", name="images", multiple)
+                button(type="submit") Post variable
