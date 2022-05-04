@@ -117,6 +117,7 @@ router.post('/product', async (req, res)=>{
 })
 
 router.get('/addVariable/:id', async(req, res)=>{
+    console.log(req.body.color);
     try{
         const product = await products.find({_id: req.params.id})
         const name = product[0].productName;
@@ -138,13 +139,14 @@ router.patch('/addVariable/:id', async(req, res)=>{
         //     width: req.body.width
         // }}})
 
-        const test = await products.updateOne({productName: "dark"},{$set:{productName: req.body.color}})
+        const test = await products.updateOne({_id: req.params.id},{$set:{productName: req.body.color}})
         // const addImages = await products.updateOne({_id: req.params.id}, {$push: {images:{
         //     file: req.body.images,
         //     color: req.body.color
         // }}})
+        console.log(req.body.color);
         res.json(test);
-        console.log("hey");
+        console.log(test);
     }catch(err){
         res.json({message: err});
         console.log(err);

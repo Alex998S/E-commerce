@@ -33,7 +33,8 @@ const ProductSchema = mongoose.Schema({
     },
     category:{
         type: String,
-        required: true
+        required: true,
+        default: "mens"
     },
     images:{
         type: Array,
