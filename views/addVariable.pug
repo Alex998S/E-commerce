@@ -7,13 +7,18 @@ block main
             p= name
             img(src=`/static/images/products/medium/` + image, alt="")
             p= id
-            form.form-group.post-container(action=`/posts/addVariable/` + id, method="patch")
+            //- .form-group.post-container
+            form(action=`/edit-products/postVariable/` + id, method="post")
                 label.form-label Enter variable color:
-                    input.form-input(type="text", name="color", value="pink")
-                //- label.form-label Enter variable size:
-                //-     input.form-input(type="text", name="size")
-                //- label.form-label Enter variable width:
-                //-     input.form-input(type="text", name="width")
-                //- label.form-label Enter imagas path:
-                //-     input.from-control-file(type="file", name="images", multiple)
+                    input.form-input(type="text", name="color")
+                label.form-label Enter variable size:
+                    input.form-input(type="text", name="size")
+                label.form-label Enter variable stock:
+                    input.form-input(type="text", name="stock")
                 button(type="submit") Post variable
+            form(action=`/edit-products/postImages/` + id, method="post")
+                label.form-label Enter variable color:
+                    input.form-input(type="text", name="imageColor")
+                label.form-label Enter imagas path:
+                    input.from-control-file(type="file", name="images", multiple)
+                button(type="submit") Post image

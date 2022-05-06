@@ -9,7 +9,8 @@ block main
                     img(src=`/static/images/products/small/${image[i]}`, alt="")
                     p= `ID: ${ids[i]}`
                     p= `Name: ${productName[i]}`
-                    form(action=`/posts/addVariable/` + ids[i], method="get")
+                    p= image[i]
+                    form(action=`/edit-products/addVariable/` + ids[i], method="get")
                         button(type="submit") Add variable 
                     form(action=`/editProduct/` + ids[i], method="get")
                         button(type="submit") Edit product

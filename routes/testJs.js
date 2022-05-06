@@ -2,25 +2,11 @@ const express = require('express');
 const { default: mongoose } = require('mongoose');
 const { stringify } = require('nodemon/lib/utils');
 const router = express.Router();
-const {posts, products, categories} = require('../models/Post')
+const {products, categories} = require('../models/Post')
 
 let length;
 
-router.get('/product', async(req, res)=>{
-    try{
-       const product = await categories.find();
-       const ids = []
-       for(let i=0; i<product.length; i++){
-           ids[i] = product[i].id
-       }
-       res.render('postProduct', {ids})
-        //res.json(product);
-    }catch(err){
-        res.json({message: err})
-    }
-})
-
-router.get('/product/edit-products', async(req,res)=>{
+router.get('/edit-products/editor', async(req,res)=>{
     try{
         let product = await products.find();
         const ids = [];
@@ -31,7 +17,7 @@ router.get('/product/edit-products', async(req,res)=>{
             image[i] = product[i].images[0].file[0];
             productName[i] = product[i].productName;
         }
-        res.render('editProduct', {ids, image, productName, length: product.length});
+        res.render('dashboard', {ids, image, productName, length: product.length});
     }catch(err){
         //res.json({message: err});
         throw new Error(err.message);
@@ -77,86 +63,19 @@ function idGenerator(){
 
 function addExtraImage(theArray){
     let array = [];
-    if(theArray.length > 10){
-        array.push(theArray);
+    if(!Array.isArray(theArray)){  
+        array[0] = theArray;
+            return array;
     }else{
-        for(let i=0; i<theArray.length; i++){
-            array.push(theArray[i]);
-        }
+        console.log("nothing changed");
+        return theArray;
     }
-    array.push('404.jpg')
-    return array;
+    
 }
 
-router.post('/product', async (req, res)=>{
-    
-    const post = new products({
-        productName: req.body.name,
-        description: defaultValue(req.body.description),
-        //description: req.body.description,
-        price: req.body.price,
-        category: req.body.option,
-        images:{
-            file: addExtraImage(req.body.images),
-            color: req.body.imageColor
-        }
-        // variants: {
-        //     id: idGenerator(),
-        //     color: req.body.variants.color,
-        //     size: req.body.variants.size,
-        //     width: req.body.variants.width
-        // }
-    });
-    try{
-        const savedProduct = await post.save();
-        res.json(savedProduct);
-        console.log(req.body.images);
-    }catch(err){
-        res.json({message: err})
-    }
-})
-
-router.get('/addVariable/:id', async(req, res)=>{
-    console.log(req.body.color);
-    try{
-        const product = await products.find({_id: req.params.id})
-        const name = product[0].productName;
-        const image = product[0].images[0].file[0];
-        const id = product[0].id;
-        //res.json(product);
-        res.render('addVariable', {name, image, id});
-    }catch(err){
-        throw new Error(err.message);
-    }
-})
-
-router.patch('/addVariable/:id', async(req, res)=>{
-    try{
-        // const updatedPost = await products.updateOne({_id: req.params.id}, {$push: {variants:{
-        //     id: idGenerator(),
-        //     color: req.body.color,
-        //     size: req.body.size,
-        //     width: req.body.width
-        // }}})
-
-        const test = await products.updateOne({_id: req.params.id},{$set:{productName: req.body.color}})
-        // const addImages = await products.updateOne({_id: req.params.id}, {$push: {images:{
-        //     file: req.body.images,
-        //     color: req.body.color
-        // }}})
-        console.log(req.body.color);
-        res.json(test);
-        console.log(test);
-    }catch(err){
-        res.json({message: err});
-        console.log(err);
-    }
-})
-    
 function removeStrings(string){
     let str = string.toString()
     string = str.substring(str.lastIndexOf("-")+1, str.length);
-    // string = string.replaceAll('-', '').replace('mens', '').replace('clothing','').replace('jewelry', '').replace('accessories','')
     string = string.charAt(0).toUpperCase() + string.slice(1);
     return string;
     

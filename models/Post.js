@@ -1,23 +1,6 @@
 const { getEventDescription } = require('@sentry/utils');
 const mongoose = require('mongoose');
 
-const PostSchema = mongoose.Schema({
-    title:{
-        type: String,
-        required: true
-    },
-    description:{
-        type: String,
-        required: true
-    },
-    date:{
-        type: Date,
-        default: Date.now
-    }
-},{
-    collection: 'posts'
-});
-
 const ProductSchema = mongoose.Schema({
     productName:{
         type: String,
@@ -57,8 +40,8 @@ const ProductSchema = mongoose.Schema({
         size:{
             type: String,
         },
-        width:{
-            type: String
+        stock:{
+            type: Number
         }
     }
 },{
@@ -92,8 +75,7 @@ const CategorySchema = mongoose.Schema({
     }
 })
 
-const posts = mongoose.model('Posts', PostSchema, 'posts');
 const products = mongoose.model('Products', ProductSchema,'products');
 const categories = mongoose.model('Categories', CategorySchema, 'categories');
 
-module.exports = {posts, products, categories}
+module.exports = {products, categories}

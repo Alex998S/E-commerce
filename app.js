@@ -13,6 +13,15 @@ const res = require('express/lib/response');
 const app = express();
 const mongoose = require('mongoose')
 
+app.use(express.json());
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json()); //new
+app.use(cookieParser());
+app.use('/static', express.static('public'));
+
+app.set('view engine', 'pug');
+
 //Connect to database
 
 mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true})
@@ -24,14 +33,6 @@ mongoose.connection.on('connected', function () {
 mongoose.connection.on('error',function (err) {  
   console.log('Mongoose default connection error: ' + err);
 }); 
-
-app.use(express.json());
-
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
-app.use('/static', express.static('public'));
-
-app.set('view engine', 'pug');
 
 Sentry.init({
     dsn: "https://d6c27dd5dd5c4e73a21508816433da58@o1174637.ingest.sentry.io/6270780",
@@ -82,6 +83,7 @@ const detailsRoutes = require('./routes/productDetail');
 const authRoutes = require('./routes/authentication.js');
 const cartRoutes = require('./routes/addToCart');
 const testJS = require('./routes/testJs');
+const editPorducts = require('./routes/editProduct')
 
 // app.use(rootRoutes);
 // app.use(parentRoutes);
@@ -90,7 +92,8 @@ const testJS = require('./routes/testJs');
 // app.use(detailsRoutes);
 // app.use(authRoutes);
 // app.use(cartRoutes);
-app.use('/posts', testJS);
+app.use(testJS);
+app.use('/edit-products', editPorducts);
 
 const { json } = require('express/lib/response');
 const { resolve } = require('path');

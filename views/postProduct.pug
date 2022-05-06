@@ -6,7 +6,7 @@ block main
         .mainContent
             //- -for(i=0; i<ids.length; i++)
             //-     p= ids[i]
-            form.form-group.post-container(action="/posts/product", method="post")
+            form.form-group.post-container(action="/edit-products/addProduct", method="post")
                 label.form-label Enter product id:
                     input.form-input(type="text", name="id")
                 label.form-label Enter product name:
