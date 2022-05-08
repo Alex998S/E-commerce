@@ -109,11 +109,14 @@ router.post('/updateImages/:id', async(req, res)=>{
     try{
         const theProduct = await products.find({_id: req.params.id})
         const updatedPost = await products.updateOne(
-           {image.color: req.body.params, _id: req.params.id}
-      )
-            res.json(updatedPost);
+            {'images.$.color': req.body.imageColor, _id: req.params.id}, {$set:{
+               'images.$.file.': addExtraImage(req.body.images)
+           }}
+        )
+        console.log(req.params.id)
+        res.json(updatedPost);
     }catch(err){
-        //res.json({message: err});
+        res.json({message: err});
         console.log("error: "+err);
     }
 })
