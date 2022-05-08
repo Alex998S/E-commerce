@@ -83,7 +83,7 @@ const detailsRoutes = require('./routes/productDetail');
 const authRoutes = require('./routes/authentication.js');
 const cartRoutes = require('./routes/addToCart');
 const testJS = require('./routes/testJs');
-const editPorducts = require('./routes/editProduct')
+const editPorducts = require('./routes/addVariable')
 
 // app.use(rootRoutes);
 // app.use(parentRoutes);

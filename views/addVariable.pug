@@ -16,7 +16,17 @@ block main
                 label.form-label Enter variable stock:
                     input.form-input(type="text", name="stock")
                 button(type="submit") Post variable
+            
+            h2 Add image for new color
             form(action=`/edit-products/postImages/` + id, method="post")
+                label.form-label Enter variable color:
+                    input.form-input(type="text", name="imageColor")
+                label.form-label Enter imagas path:
+                    input.from-control-file(type="file", name="images", multiple)
+                button(type="submit") Post image
+            
+            h2 Add image for existing color
+            form(action=`/edit-products/updateImages/` + id, method="post")
                 label.form-label Enter variable color:
                     input.form-input(type="text", name="imageColor")
                 label.form-label Enter imagas path:

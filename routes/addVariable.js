@@ -105,4 +105,17 @@ router.post('/postImages/:id', async(req, res)=>{
     }
 })
 
+router.post('/updateImages/:id', async(req, res)=>{
+    try{
+        const theProduct = await products.find({_id: req.params.id})
+        const updatedPost = await products.updateOne(
+           {image.color: req.body.params, _id: req.params.id}
+      )
+            res.json(updatedPost);
+    }catch(err){
+        //res.json({message: err});
+        console.log("error: "+err);
+    }
+})
+
 module.exports = router;
