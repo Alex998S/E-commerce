@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const https = require('https');
 
-const secretKey = "$2a$08$EnHlurAo729FiqMtWlY1YumuY088oZf5gWlkKBMgvGcmtd4tKQEzi";
-
 let length;
 let products;
 let productID = [];
@@ -15,7 +13,7 @@ let price = [];
 
 function getData(theParameter){
     return new Promise(resolve=>{
-        const request = https.get(`https://osf-digital-backend-academy.herokuapp.com/api/products/product_search?primary_category_id=${theParameter}&secretKey=$2a$08$EnHlurAo729FiqMtWlY1YumuY088oZf5gWlkKBMgvGcmtd4tKQEzi`, response=>{
+        const request = https.get(`https://osf-digital-backend-academy.herokuapp.com/api/products/product_search?primary_category_id=${theParameter}&secretKey=${process.env.SECRET_KEY}`, response=>{
 
             let body ="";
             response.on('data', data =>{

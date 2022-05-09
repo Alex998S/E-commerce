@@ -8,10 +8,8 @@ let rootDescription = [];
 let rootID = [];
 const columnNumber = 3;
 
-const secretKey = "$2a$08$EnHlurAo729FiqMtWlY1YumuY088oZf5gWlkKBMgvGcmtd4tKQEzi";
-
 //get all sub-categories
-const reqq = https.get(`https://osf-digital-backend-academy.herokuapp.com/api/categories?secretKey=${secretKey}`, response=>{
+const reqq = https.get(`https://osf-digital-backend-academy.herokuapp.com/api/categories?secretKey=${process.env.SECRET_KEY}`, response=>{
     let body ="";
     response.on('data', data =>{
         body +=data.toString();

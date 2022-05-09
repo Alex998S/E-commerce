@@ -35,7 +35,7 @@ mongoose.connection.on('error',function (err) {
 }); 
 
 Sentry.init({
-    dsn: "https://d6c27dd5dd5c4e73a21508816433da58@o1174637.ingest.sentry.io/6270780",
+    dsn: process.env.DSN,
     integrations: [
       // enable HTTP calls tracing
       new Sentry.Integrations.Http({ tracing: true }),
@@ -72,8 +72,6 @@ Sentry.init({
     res.statusCode = 500;
     res.end(res.sentry + "\n");
   });
-
-const secretKey = "$2a$08$EnHlurAo729FiqMtWlY1YumuY088oZf5gWlkKBMgvGcmtd4tKQEzi";
 
 const rootRoutes = require('./routes/root_categories');
 const parentRoutes = require('./routes/parent_categories');

@@ -5,12 +5,9 @@ const router = express.Router();
 const https = require('https');
 const { resolve } = require('path');
 const { route } = require('./root_categories');
+require('dotenv').config()
 
 const axios = require('axios');
-
-
-const secretKey = "$2a$08$EnHlurAo729FiqMtWlY1YumuY088oZf5gWlkKBMgvGcmtd4tKQEzi";
-
 
 global.token = "";
 let theEmail;
@@ -50,7 +47,7 @@ router.post('/auth/signup', (req, res)=>{
         const result = await setData();
         console.log(result);
         axios.post("https://osf-digital-backend-academy.herokuapp.com/api/auth/signup",{
-        secretKey: secretKey,
+        secretKey: process.env.SECRET_KEY,
         name: theName,
         email: theEmail,
         password: thePassword
@@ -91,7 +88,7 @@ router.post('/auth/signin', (req,res)=>{
         const result = await setDataLogin();
         console.log(result);
         axios.post("https://osf-digital-backend-academy.herokuapp.com/api/auth/signin",{
-            secretKey: secretKey,
+            secretKey: process.env.SECRET_KEY,
             email: theEmail,
             password: thePassword
         })
